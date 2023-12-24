@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Admin Page";
+}
+@model List<DestinationListItemVM>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<div>
+    <table class ="table table-bordered" id="dataTable" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Rate</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(DestinationListItemVM item in Model)
+               {
+            <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Price</td>
+                    <td>@item.Image</td>
+                    <td>@item.Rate</td>
+                    <td></td>
+                    <td></td>
+            </tr>
+               }
+        </tbody>
+        
+    </table>
+</div>
+  
