@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MVC_Sinaq.Contexts;
+using MVC_Sinaq.Helpers;
 
 namespace MVC_Sinaq
 {
@@ -39,7 +40,7 @@ namespace MVC_Sinaq
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            PathExtension.RootPath = builder.Environment.WebRootPath;
             app.Run();
         }
     }

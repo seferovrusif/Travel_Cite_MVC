@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using MVC_Sinaq.Areas.Admin.ViewModels.Destination;
 using MVC_Sinaq.Contexts;
+using MVC_Sinaq.Helpers;
 using MVC_Sinaq.Models;
+using System.Linq;
 
 namespace MVC_Sinaq.Areas.Admin.Controllers
 {
@@ -28,7 +30,7 @@ namespace MVC_Sinaq.Areas.Admin.Controllers
             }).ToListAsync();
             return View(data) ;
         }
-        public async Task<IActionResult> Create()
+        public  IActionResult Create()
         {
             return View();
         }
@@ -41,7 +43,7 @@ namespace MVC_Sinaq.Areas.Admin.Controllers
             }
             Destination destination = new Destination 
             {
-                Image = "fff",
+                Image = vm.Image.FileUploadasync(PathExtension.FileUpload).Result,
                 Title = vm.Title,
                 Price = vm.Price,
                 Rate = vm.Rate,
@@ -49,6 +51,13 @@ namespace MVC_Sinaq.Areas.Admin.Controllers
             await _db.Destinations.AddAsync(destination);
             await _db.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+           var data= await _db.Destinations.FindAsync(id);
+            _db.Destinations.Remove(data);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
